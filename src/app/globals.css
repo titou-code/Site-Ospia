@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+@import "tailwindcss";
+
+:root {
+  --navy: #1A3C5E;
+  --blue-accent: #3A7FC1;
+  --blue-accent-dark: #5B9BD5;
+  --blue-light: #4FA8F5;
+  --blue-deep: #0B5ED7;
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F8FAFC;
+  --bg-tertiary: #F1F5F9;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+  --border: #E2E8F0;
+  --border-light: #F1F5F9;
+}
+
+@theme inline {
+  --color-navy: var(--navy);
+  --color-blue-accent: var(--blue-accent);
+  --color-blue-accent-dark: var(--blue-accent-dark);
+  --color-blue-light: var(--blue-light);
+  --color-blue-deep: var(--blue-deep);
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-tertiary: var(--bg-tertiary);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-border: var(--border);
+  --color-border-light: var(--border-light);
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --animate-aurora: aurora 12s ease-in-out infinite;
+  --animate-aurora-slow: aurora-slow 18s ease-in-out infinite;
+  --animate-glow-pulse: glow-pulse 3s ease-in-out infinite;
+  --animate-float-1: float-1 8s ease-in-out infinite;
+  --animate-float-2: float-2 10s ease-in-out infinite;
+  --animate-float-3: float-3 12s ease-in-out infinite;
+  --animate-shimmer: shimmer 2s linear infinite;
+  --animate-spin-slow: spin 20s linear infinite;
+  --animate-pulse-glow: pulse-glow 2.5s ease-in-out infinite;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+::selection {
+  background-color: #3A7FC133;
+  color: var(--navy);
+}
+
+/* Aurora gradient backgrounds */
+@keyframes aurora {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes aurora-slow {
+  0%, 100% { background-position: 0% 50%; transform: scale(1); }
+  33% { background-position: 50% 100%; transform: scale(1.02); }
+  66% { background-position: 100% 0%; transform: scale(0.98); }
+}
+
+/* Glow pulse for CTA buttons */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.02); }
+}
+
+/* Floating shapes */
+@keyframes float-1 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(15px, -20px) rotate(5deg); }
+  50% { transform: translate(-10px, -35px) rotate(-3deg); }
+  75% { transform: translate(20px, -15px) rotate(7deg); }
+}
+
+@keyframes float-2 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(-20px, 15px) rotate(-8deg); }
+  66% { transform: translate(15px, -25px) rotate(5deg); }
+}
+
+@keyframes float-3 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  20% { transform: translate(25px, 10px) rotate(10deg); }
+  40% { transform: translate(-15px, -20px) rotate(-5deg); }
+  60% { transform: translate(10px, -30px) rotate(8deg); }
+  80% { transform: translate(-20px, 5px) rotate(-3deg); }
+}
+
+/* Shimmer effect for buttons */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Pulse glow for active timeline dots */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(58, 127, 193, 0.5); }
+  50% { box-shadow: 0 0 20px 8px rgba(58, 127, 193, 0.2); }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
