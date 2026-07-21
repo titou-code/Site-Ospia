@@ -57,6 +57,45 @@ export default function CircuitBackground() {
     let visible = true;
     let camX = 0, horizon = 0;
     let nodes: Node[] = [], pulses: Pulse[] = [], dust: Dust[] = [];
+    let bgLayer: HTMLCanvasElement | null = null, fgLayer: HTMLCanvasElement | null = null;
+
+    // Dégradés statiques pré-rendus hors écran — reconstruits uniquement au resize
+    function buildLayers() {
+      const hz = H * 0.42;
+
+      bgLayer = document.createElement("canvas");
+      bgLayer.width = W * dpr; bgLayer.height = H * dpr;
+      const bc = bgLayer.getContext("2d");
+      if (bc) {
+        bc.setTransform(dpr, 0, 0, dpr, 0, 0);
+        const bg = bc.createRadialGradient(W * 0.46, H * 0.5, 0, W * 0.46, H * 0.5, Math.max(W, H) * 0.78);
+        bg.addColorStop(0, "#0c1838"); bg.addColorStop(0.55, "#081026"); bg.addColorStop(1, "#04081a");
+        bc.fillStyle = bg; bc.fillRect(0, 0, W, H);
+
+        bc.globalCompositeOperation = "lighter";
+        const warm = bc.createRadialGradient(W * 0.95, H * 0.32, 0, W * 0.95, H * 0.32, W * 0.32);
+        warm.addColorStop(0, "rgba(255,160,95,.11)"); warm.addColorStop(1, "rgba(0,0,0,0)");
+        bc.fillStyle = warm; bc.fillRect(0, 0, W, H);
+
+        const cool = bc.createRadialGradient(W * 0.4, hz, 0, W * 0.4, hz, W * 0.5);
+        cool.addColorStop(0, "rgba(60,110,220,.13)"); cool.addColorStop(1, "rgba(0,0,0,0)");
+        bc.fillStyle = cool; bc.fillRect(0, 0, W, H);
+      }
+
+      fgLayer = document.createElement("canvas");
+      fgLayer.width = W * dpr; fgLayer.height = H * dpr;
+      const fc = fgLayer.getContext("2d");
+      if (fc) {
+        fc.setTransform(dpr, 0, 0, dpr, 0, 0);
+        const vg = fc.createRadialGradient(W * 0.5, H * 0.52, Math.min(W, H) * 0.26, W * 0.5, H * 0.52, Math.max(W, H) * 0.72);
+        vg.addColorStop(0, "rgba(0,0,0,0)"); vg.addColorStop(1, "rgba(2,5,14,.6)");
+        fc.fillStyle = vg; fc.fillRect(0, 0, W, H);
+
+        const tf = fc.createLinearGradient(0, 0, 0, H * 0.24);
+        tf.addColorStop(0, "rgba(4,8,22,.65)"); tf.addColorStop(1, "rgba(4,8,22,0)");
+        fc.fillStyle = tf; fc.fillRect(0, 0, W, H * 0.24);
+      }
+    }
 
     function genNodes() {
       const N = Math.round(120 * densityFactor);
@@ -119,20 +158,9 @@ export default function CircuitBackground() {
       const camXt = Math.sin(time * 0.003) * 24;
       camX += (camXt - camX) * 0.05 * dt;
 
-      // Background
+      // Background (calque statique pré-rendu)
       ctx.globalCompositeOperation = "source-over";
-      const bg = ctx.createRadialGradient(W * 0.46, H * 0.5, 0, W * 0.46, H * 0.5, Math.max(W, H) * 0.78);
-      bg.addColorStop(0, "#0c1838"); bg.addColorStop(0.55, "#081026"); bg.addColorStop(1, "#04081a");
-      ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
-
-      ctx.globalCompositeOperation = "lighter";
-      const warm = ctx.createRadialGradient(W * 0.95, H * 0.32, 0, W * 0.95, H * 0.32, W * 0.32);
-      warm.addColorStop(0, "rgba(255,160,95,.11)"); warm.addColorStop(1, "rgba(0,0,0,0)");
-      ctx.fillStyle = warm; ctx.fillRect(0, 0, W, H);
-
-      const cool = ctx.createRadialGradient(W * 0.4, horizon, 0, W * 0.4, horizon, W * 0.5);
-      cool.addColorStop(0, "rgba(60,110,220,.13)"); cool.addColorStop(1, "rgba(0,0,0,0)");
-      ctx.fillStyle = cool; ctx.fillRect(0, 0, W, H);
+      if (bgLayer) ctx.drawImage(bgLayer, 0, 0, W, H);
 
       // Move nodes
       for (const n of nodes) {
@@ -254,15 +282,9 @@ export default function CircuitBackground() {
         ctx.fillStyle = `rgba(170,205,255,${tw * 0.4})`; ctx.fill();
       });
 
-      // Vignette
+      // Vignette + fondu haut (calque statique pré-rendu)
       ctx.globalCompositeOperation = "source-over";
-      const vg = ctx.createRadialGradient(W * 0.5, H * 0.52, Math.min(W, H) * 0.26, W * 0.5, H * 0.52, Math.max(W, H) * 0.72);
-      vg.addColorStop(0, "rgba(0,0,0,0)"); vg.addColorStop(1, "rgba(2,5,14,.6)");
-      ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
-
-      const tf = ctx.createLinearGradient(0, 0, 0, H * 0.24);
-      tf.addColorStop(0, "rgba(4,8,22,.65)"); tf.addColorStop(1, "rgba(4,8,22,0)");
-      ctx.fillStyle = tf; ctx.fillRect(0, 0, W, H * 0.24);
+      if (fgLayer) ctx.drawImage(fgLayer, 0, 0, W, H);
     }
 
     function resize() {
@@ -272,6 +294,7 @@ export default function CircuitBackground() {
       canvas!.width = W * dpr; canvas!.height = H * dpr;
       canvas!.style.width = W + "px"; canvas!.style.height = H + "px";
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+      buildLayers();
       genNodes(); genDust(); pulses = [];
     }
 

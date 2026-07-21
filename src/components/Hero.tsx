@@ -90,7 +90,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 1.1, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-10 flex flex-row gap-3 justify-center"
+          className="mt-10 flex flex-col sm:flex-row gap-3 justify-center items-center"
         >
           <GlowButton href="#contact" className="text-sm whitespace-nowrap">
             <span className="inline-flex items-center gap-2">
@@ -112,7 +112,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.4 }}
-          className="mt-16 flex items-center justify-center gap-8 text-sm text-text-muted"
+          className="mt-16 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-sm text-text-muted"
         >
           {["Audit gratuit", "Devis sous 48h", "100% propriétaire"].map((item, i) => (
             <motion.div

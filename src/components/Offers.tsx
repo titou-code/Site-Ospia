@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Reveal, StaggerContainer, StaggerItem } from "./motion";
 
@@ -38,7 +38,7 @@ const offers = [
       "Production, stocks et marges sur Excel",
       "Gestion commerciale non centralisée",
       "Aucun dashboard en temps réel",
-      "Tout ce qui était géré manuellement, automatisé",
+      "Des tâches répétitives gérées à la main",
     ],
     accent: "from-blue-deep to-blue-light",
     featured: true,
@@ -87,6 +87,15 @@ const popupData: Record<string, { preamble?: string; intro: string; examples: { 
 
 export default function Offers() {
   const [activePopup, setActivePopup] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!activePopup) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setActivePopup(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [activePopup]);
 
   return (
     <section id="offres" className="relative pt-0 pb-24 lg:pb-32 bg-bg-primary">
@@ -279,6 +288,9 @@ export default function Offers() {
                   exit: { duration: 0.15, ease: "easeOut" },
                   type: "spring", damping: 22, stiffness: 280,
                 }}
+                role="dialog"
+                aria-modal="true"
+                aria-label={activePopup}
                 className="relative bg-white rounded-2xl border border-border shadow-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto"
                 onClick={(e) => e.stopPropagation()}
               >
@@ -286,6 +298,8 @@ export default function Offers() {
                   <motion.h3 {...staggerItem()} className="text-xl font-bold text-navy">{activePopup}</motion.h3>
                   <button
                     onClick={() => setActivePopup(null)}
+                    autoFocus
+                    aria-label="Fermer"
                     className="w-8 h-8 rounded-full bg-navy/5 hover:bg-navy/10 flex items-center justify-center text-navy/50 hover:text-navy transition-colors duration-200 cursor-pointer"
                   >
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">

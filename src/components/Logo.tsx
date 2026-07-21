@@ -9,7 +9,7 @@ interface LogoProps {
 
 export default function Logo({ variant = "light", className = "" }: LogoProps) {
   const src = variant === "dark" ? "/logo-dark.png" : "/logo-light.png";
-  const alt = "Oxai";
+  const alt = "Ospia";
 
   return (
     <Image
