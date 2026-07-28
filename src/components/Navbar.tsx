@@ -6,9 +6,9 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const links = [
   { href: "#constat", label: "Constat" },
-  { href: "#process", label: "Méthode" },
   { href: "#offres", label: "Offres" },
-  { href: "#pourquoi", label: "Pourquoi Oxai" },
+  { href: "#process", label: "Méthode" },
+  { href: "#pourquoi", label: "Pourquoi Ospia" },
   { href: "#contact", label: "Contact" },
 ];
 

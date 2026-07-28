@@ -5,9 +5,9 @@ import { Reveal } from "./motion";
 
 const navLinks = [
   { href: "#constat", label: "Constat" },
-  { href: "#process", label: "Méthode" },
   { href: "#offres", label: "Offres" },
-  { href: "#pourquoi", label: "Pourquoi Oxai" },
+  { href: "#process", label: "Méthode" },
+  { href: "#pourquoi", label: "Pourquoi Ospia" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -43,7 +43,7 @@ export default function Footer() {
 
         <div className="mt-8 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-white/30">
-            &copy; {new Date().getFullYear()} Oxai. Tous droits réservés.
+            &copy; {new Date().getFullYear()} Ospia. Tous droits réservés.
           </p>
           {/* Liens mentions légales masqués temporairement */}
         </div>

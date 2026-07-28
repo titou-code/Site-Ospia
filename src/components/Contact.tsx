@@ -10,10 +10,28 @@ const CircuitBackground = dynamic(() => import("./CircuitBackground"), { ssr: fa
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(false);
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSubmitted(true);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData as any).toString(),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        setError(true);
+      }
+    } catch {
+      setError(true);
+    }
   }
 
   return (
@@ -66,9 +84,17 @@ export default function Contact() {
               </motion.div>
             ) : (
               <form
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                netlify-honeypot="bot-field"
                 onSubmit={handleSubmit}
                 className="rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-8"
               >
+                <input type="hidden" name="form-name" value="contact" />
+                <p className="hidden">
+                  <label>Ne pas remplir : <input name="bot-field" /></label>
+                </p>
                 <div className="space-y-5">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-white/80 mb-1.5">
@@ -135,6 +161,11 @@ export default function Contact() {
                       placeholder="Votre besoin détaillé..."
                     />
                   </div>
+                  {error && (
+                    <p className="text-red-400 text-sm text-center">
+                      Une erreur est survenue, veuillez réessayer.
+                    </p>
+                  )}
                   <button
                     type="submit"
                     className="group relative w-full rounded-lg bg-blue-accent px-8 py-3.5 text-base font-semibold text-white overflow-hidden cursor-pointer"
@@ -156,10 +187,10 @@ export default function Contact() {
                   Email
                 </h4>
                 <a
-                  href="mailto:contact@oxai.fr"
+                  href="mailto:contact@ospia.fr"
                   className="text-lg text-white hover:text-blue-accent-dark transition-colors duration-200 cursor-pointer"
                 >
-                  contact@oxai.fr
+                  contact@ospia.fr
                 </a>
               </motion.div>
               <motion.div whileHover={{ x: 4 }} transition={{ duration: 0.2 }}>

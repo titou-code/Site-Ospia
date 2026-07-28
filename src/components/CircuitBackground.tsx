@@ -146,6 +146,7 @@ export default function CircuitBackground() {
 
     function draw(now: number) {
       raf = requestAnimationFrame(draw);
+      if (!ctx) return;
       if (!visible || !playing || prefersReduced) { last = now; return; }
       if (now - lastDraw < FRAME_MS) return;
       lastDraw = now;

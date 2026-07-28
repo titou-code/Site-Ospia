@@ -43,7 +43,7 @@ export default function CaseStudy() {
                         dispersés.
                       </p>
                       <p>
-                        En 4 semaines, Opai a conçu et déployé une application
+                        En 4 semaines, Ospia a conçu et déployé une application
                         complète de pilotage de production et de gestion des
                         stocks — là où un ERP générique aurait coûté 2 à 3 fois
                         plus cher, avec des fonctionnalités inutiles et des mois

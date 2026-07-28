@@ -3,8 +3,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Mentions légales — Oxai",
-  description: "Mentions légales du site Oxai.",
+  title: "Mentions légales — Ospia",
+  description: "Mentions légales du site Ospia.",
 };
 
 export default function MentionsLegales() {
@@ -32,7 +32,7 @@ export default function MentionsLegales() {
                 Éditeur du site
               </h2>
               <p>
-                Le site Oxai est édité par Oxai, [Statut juridique à compléter
+                Le site Ospia est édité par Ospia, [Statut juridique à compléter
                 — auto-entrepreneur / société, à définir].
               </p>
               <ul className="mt-3 space-y-1.5 list-none">
@@ -41,10 +41,10 @@ export default function MentionsLegales() {
                 <li>
                   Email :{" "}
                   <a
-                    href="mailto:contact@oxai.fr"
+                    href="mailto:contact@ospia.fr"
                     className="text-blue-accent hover:underline"
                   >
-                    contact@oxai.fr
+                    contact@ospia.fr
                   </a>
                 </li>
                 <li>
@@ -84,7 +84,7 @@ export default function MentionsLegales() {
               <p>
                 L&apos;ensemble des contenus présents sur ce site (textes,
                 images, logos, identité visuelle) est la propriété exclusive
-                d&apos;Oxai, sauf mention contraire. Toute reproduction,
+                d&apos;Ospia, sauf mention contraire. Toute reproduction,
                 représentation, modification ou exploitation, totale ou
                 partielle, sans autorisation préalable, est interdite.
               </p>

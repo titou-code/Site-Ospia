@@ -33,8 +33,6 @@
   --color-border: var(--border);
   --color-border-light: var(--border-light);
   --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
-  --animate-aurora: aurora 12s ease-in-out infinite;
-  --animate-aurora-slow: aurora-slow 18s ease-in-out infinite;
   --animate-glow-pulse: glow-pulse 3s ease-in-out infinite;
   --animate-float-1: float-1 8s ease-in-out infinite;
   --animate-float-2: float-2 10s ease-in-out infinite;
@@ -57,18 +55,6 @@ body {
 ::selection {
   background-color: #3A7FC133;
   color: var(--navy);
-}
-
-/* Aurora gradient backgrounds */
-@keyframes aurora {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-@keyframes aurora-slow {
-  0%, 100% { background-position: 0% 50%; transform: scale(1); }
-  33% { background-position: 50% 100%; transform: scale(1.02); }
-  66% { background-position: 100% 0%; transform: scale(0.98); }
 }
 
 /* Glow pulse for CTA buttons */

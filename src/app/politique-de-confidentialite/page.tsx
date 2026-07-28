@@ -3,8 +3,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Politique de confidentialité — Oxai",
-  description: "Politique de confidentialité et protection des données personnelles du site Oxai.",
+  title: "Politique de confidentialité — Ospia",
+  description: "Politique de confidentialité et protection des données personnelles du site Ospia.",
 };
 
 export default function PolitiqueDeConfidentialite() {
@@ -33,7 +33,7 @@ export default function PolitiqueDeConfidentialite() {
               </h2>
               <p>
                 Dans le cadre de l&apos;utilisation du formulaire de contact,
-                Oxai collecte les données suivantes : nom, entreprise, email,
+                Ospia collecte les données suivantes : nom, entreprise, email,
                 téléphone et description du besoin. Ces informations sont
                 utilisées uniquement pour répondre à votre demande et établir,
                 le cas échéant, un devis ou une proposition commerciale.
@@ -50,10 +50,10 @@ export default function PolitiqueDeConfidentialite() {
                 et d&apos;opposition concernant vos données personnelles. Pour
                 exercer ces droits, vous pouvez nous contacter à l&apos;adresse{" "}
                 <a
-                  href="mailto:contact@oxai.fr"
+                  href="mailto:contact@ospia.fr"
                   className="text-blue-accent hover:underline"
                 >
-                  contact@oxai.fr
+                  contact@ospia.fr
                 </a>
                 . Vous disposez également du droit d&apos;introduire une
                 réclamation auprès de la CNIL (
@@ -83,7 +83,7 @@ export default function PolitiqueDeConfidentialite() {
                 Responsabilité
               </h2>
               <p>
-                Oxai ne saurait être tenu responsable des dommages directs ou
+                Ospia ne saurait être tenu responsable des dommages directs ou
                 indirects résultant de l&apos;accès ou de l&apos;utilisation de
                 ce site, y compris l&apos;inaccessibilité, les pertes de données
                 ou la présence de virus.

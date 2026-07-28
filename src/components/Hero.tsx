@@ -1,52 +1,52 @@
 "use client";
 
-import dynamic from "next/dynamic";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { TextReveal, GlowButton } from "./motion";
 
-const Diamond3DOrbit = dynamic(() => import("./Diamond3D"), { ssr: false });
-
 export default function Hero() {
+  const [useVideo, setUseVideo] = useState(false);
+
+  useEffect(() => {
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isDesktop = window.innerWidth >= 768;
+    // Charger la vidéo (4,8 Mo) uniquement sur desktop et si l'utilisateur n'a pas réduit les animations
+    if (isDesktop && !prefersReduced) setUseVideo(true);
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Aurora animated background — very soft blues */}
+      {/* Image poster — affichée immédiatement, et seule sur mobile / reduced-motion */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/hero-poster.jpg"
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+
+      {/* Vidéo de fond réelle (desktop, animations autorisées) */}
+      {useVideo && (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/hero-poster.jpg"
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/hero-video.mp4" type="video/mp4" />
+        </video>
+      )}
+
+      {/* Voile clair par-dessus la vidéo — garde le texte navy parfaitement lisible */}
       <div
-        className="absolute inset-0 animate-aurora"
+        className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(135deg, #FFFFFF 0%, #FAFCFF 20%, #F5F9FE 40%, #F8FAFC 60%, #F7FAFD 80%, #FFFFFF 100%)",
-          backgroundSize: "300% 300%",
+            "radial-gradient(ellipse at center, rgba(255,255,255,0.72) 0%, rgba(250,252,255,0.62) 45%, rgba(245,249,254,0.45) 100%)",
         }}
       />
-
-      {/* Animated gradient blobs */}
-      <motion.div
-        className="absolute -top-20 -right-20 w-[500px] h-[500px] rounded-full blur-3xl"
-        style={{
-          background: "radial-gradient(circle, rgba(58,127,193,0.08) 0%, transparent 70%)",
-        }}
-        animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.7, 0.5] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute top-1/3 -left-32 w-[400px] h-[400px] rounded-full blur-3xl"
-        style={{
-          background: "radial-gradient(circle, rgba(26,60,94,0.05) 0%, transparent 70%)",
-        }}
-        animate={{ scale: [1, 1.2, 1], opacity: [0.4, 0.6, 0.4] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute bottom-20 right-1/4 w-[350px] h-[350px] rounded-full blur-3xl"
-        style={{
-          background: "radial-gradient(circle, rgba(11,94,215,0.04) 0%, transparent 70%)",
-        }}
-        animate={{ scale: [1.1, 1, 1.1], opacity: [0.3, 0.5, 0.3] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      />
-
-      {/* 3D diamond orbit (Three.js) */}
-      <Diamond3DOrbit />
 
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-7xl px-6 pt-32 pb-20 lg:px-8 lg:pt-40 lg:pb-32 text-center">
@@ -67,6 +67,7 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3, delay: 0.2 }}
           className="text-4xl font-extrabold tracking-tight text-navy sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.1]"
+          style={{ textShadow: "0 0 24px rgba(255,255,255,0.8)" }}
         >
           <TextReveal text="Construit pour vous." delay={0.25} />
           <br />
@@ -81,7 +82,7 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
           className="mt-6 mx-auto max-w-2xl text-lg text-text-secondary leading-relaxed sm:text-xl"
         >
-          Oxai audite votre entreprise, identifie vos vrais besoins, puis
+          Ospia audite votre entreprise, identifie vos vrais besoins, puis
           construit exactement l&apos;outil dont vous avez besoin — en quelques
           semaines, pour moins cher qu&apos;un ERP standard.
         </motion.p>
