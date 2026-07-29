@@ -1,6 +1,6 @@
 "use client";
 
-import { Reveal, FocusCarousel, StaggerItem, TextReveal } from "./motion";
+import { Reveal, StaggerContainer, StaggerItem, TextReveal } from "./motion";
 
 const problems = [
   {
@@ -65,23 +65,23 @@ export default function Problem() {
           </p>
         </Reveal>
 
-        <FocusCarousel className="flex md:grid overflow-x-auto md:overflow-visible max-md:snap-x max-md:snap-mandatory no-scrollbar max-md:-mx-6 max-md:px-6 max-md:pb-4 md:grid-cols-2 gap-6 lg:gap-8" staggerDelay={0.12}>
+        <StaggerContainer className="grid grid-cols-2 md:grid-cols-2 max-md:auto-rows-fr gap-3 md:gap-6 lg:gap-8" staggerDelay={0.12}>
           {problems.map((p, i) => (
-            <StaggerItem key={i} className="max-md:w-[78%] max-md:shrink-0 max-md:snap-center">
-              <div className="group relative rounded-2xl border border-border bg-white p-8 hover:border-blue-accent/30 hover:shadow-xl hover:shadow-blue-accent/10 transition-all duration-300 cursor-default h-full">
-                <div className="flex items-start gap-5">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-navy/5 flex items-center justify-center text-navy group-hover:bg-blue-accent/10 group-hover:text-blue-accent transition-colors duration-300">
+            <StaggerItem key={i} className="h-full">
+              <div className="group relative rounded-2xl border border-border bg-white p-8 max-md:p-4 hover:border-blue-accent/30 hover:shadow-xl hover:shadow-blue-accent/10 transition-all duration-300 cursor-default h-full">
+                <div className="flex items-start gap-5 max-md:flex-col max-md:gap-2.5">
+                  <div className="flex-shrink-0 w-12 h-12 max-md:w-10 max-md:h-10 rounded-xl bg-navy/5 flex items-center justify-center text-navy group-hover:bg-blue-accent/10 group-hover:text-blue-accent transition-colors duration-300">
                     {p.icon}
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-navy mb-2">{p.title}</h3>
-                    <p className="text-text-secondary leading-relaxed text-justify">{p.desc}</p>
+                    <h3 className="text-lg max-md:text-sm font-semibold text-navy mb-2 max-md:mb-1">{p.title}</h3>
+                    <p className="text-text-secondary leading-relaxed text-justify max-md:text-xs max-md:text-left max-md:leading-snug">{p.desc}</p>
                   </div>
                 </div>
               </div>
             </StaggerItem>
           ))}
-        </FocusCarousel>
+        </StaggerContainer>
       </div>
     </section>
   );

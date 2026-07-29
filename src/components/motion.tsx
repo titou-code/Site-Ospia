@@ -167,11 +167,10 @@ export function FocusCarousel({
       }
       const ratio = Math.min(d / r.width, 1);
       c.style.transformOrigin = "center center";
-      c.style.transform = `scale(${(1 - ratio * 0.14).toFixed(3)})`;
-      c.style.opacity = (1 - ratio * 0.55).toFixed(3);
-      c.style.filter = ratio > 0.05 ? `blur(${(ratio * 1.6).toFixed(2)}px)` : "";
+      c.style.transform = `scale(${(1 - ratio * 0.12).toFixed(3)})`;
+      c.style.opacity = (1 - ratio * 0.5).toFixed(3);
       c.style.boxShadow = `0 24px 48px -18px rgba(26,60,94,${(0.3 * (1 - ratio)).toFixed(3)})`;
-      c.style.transition = "transform 0.3s ease-out, opacity 0.3s ease-out, filter 0.3s ease-out, box-shadow 0.3s ease-out";
+      c.style.transition = "transform 0.3s ease-out, opacity 0.3s ease-out, box-shadow 0.3s ease-out";
     });
     setActive(best);
   }, []);

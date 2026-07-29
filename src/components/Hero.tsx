@@ -9,9 +9,8 @@ export default function Hero() {
 
   useEffect(() => {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const isDesktop = window.innerWidth >= 768;
-    // Charger la vidéo (4,8 Mo) uniquement sur desktop et si l'utilisateur n'a pas réduit les animations
-    if (isDesktop && !prefersReduced) setUseVideo(true);
+    // Vidéo sur mobile ET desktop (sauf reduced-motion, où le poster statique reste affiché)
+    if (!prefersReduced) setUseVideo(true);
   }, []);
 
   return (
@@ -25,7 +24,7 @@ export default function Hero() {
         className="absolute inset-0 w-full h-full object-cover"
       />
 
-      {/* Vidéo de fond réelle (desktop, animations autorisées) */}
+      {/* Vidéo de fond réelle (mobile + desktop, sauf reduced-motion) */}
       {useVideo && (
         <video
           autoPlay
@@ -33,6 +32,11 @@ export default function Hero() {
           loop
           playsInline
           poster="/hero-poster.jpg"
+          onLoadedMetadata={(e) => {
+            // Démarrage propre après le fondu d'ouverture (début de la 1re séquence).
+            // Le loop repart de 0 pour rester seamless.
+            e.currentTarget.currentTime = 1.5;
+          }}
           className="absolute inset-0 w-full h-full object-cover"
         >
           <source src="/hero-video.mp4" type="video/mp4" />

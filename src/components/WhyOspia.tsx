@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Reveal, FocusCarousel, TextReveal } from "./motion";
+import { Reveal, StaggerContainer, TextReveal } from "./motion";
 
 const points = [
   {
@@ -104,7 +104,7 @@ export default function WhyOspia() {
           </h2>
         </Reveal>
 
-        <FocusCarousel className="flex md:grid overflow-x-auto md:overflow-visible max-md:snap-x max-md:snap-mandatory no-scrollbar max-md:-mx-6 max-md:px-6 max-md:pb-4 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8" staggerDelay={0.1}>
+        <StaggerContainer className="flex flex-col md:grid gap-3 md:gap-6 lg:gap-8 md:grid-cols-2 lg:grid-cols-3" staggerDelay={0.1}>
           {points.map((p, i) => (
             <motion.div
               key={i}
@@ -113,18 +113,19 @@ export default function WhyOspia() {
                 visible: { opacity: 1, y: 0, scale: 1 },
               }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="max-md:w-[76%] max-md:shrink-0 max-md:snap-center"
             >
-              <div className="group rounded-2xl border border-border bg-white p-8 hover:border-blue-accent/30 hover:shadow-xl hover:shadow-blue-accent/10 transition-all duration-300 cursor-default h-full">
-                <div className="w-12 h-12 rounded-xl bg-navy/5 flex items-center justify-center text-navy mb-5 group-hover:bg-blue-accent/10 group-hover:text-blue-accent transition-colors duration-300">
+              <div className="group rounded-2xl border border-border bg-white p-8 max-md:p-4 max-md:flex max-md:items-start max-md:gap-3.5 hover:border-blue-accent/30 hover:shadow-xl hover:shadow-blue-accent/10 transition-all duration-300 cursor-default h-full">
+                <div className="w-12 h-12 max-md:w-10 max-md:h-10 max-md:shrink-0 rounded-xl bg-navy/5 flex items-center justify-center text-navy mb-5 max-md:mb-0 group-hover:bg-blue-accent/10 group-hover:text-blue-accent transition-colors duration-300">
                   {p.icon}
                 </div>
-                <h3 className="text-lg font-semibold text-navy mb-2">{p.title}</h3>
-                <p className="text-text-secondary leading-relaxed">{p.desc}</p>
+                <div className="max-md:min-w-0">
+                  <h3 className="text-lg max-md:text-sm font-semibold text-navy mb-2 max-md:mb-0.5">{p.title}</h3>
+                  <p className="text-text-secondary leading-relaxed max-md:text-xs max-md:leading-snug">{p.desc}</p>
+                </div>
               </div>
             </motion.div>
           ))}
-        </FocusCarousel>
+        </StaggerContainer>
       </div>
     </section>
   );

@@ -14,7 +14,7 @@ const navLinks = [
 export default function Footer() {
   return (
     <footer className="bg-[#060e1f] border-t border-white/5">
-      <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
+      <div className="mx-auto max-w-7xl px-6 max-md:px-4 py-12 lg:px-8">
         <Reveal>
           <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
             <div className="flex flex-col items-center lg:items-start gap-4">
@@ -26,12 +26,12 @@ export default function Footer() {
               </p>
             </div>
 
-            <nav className="flex flex-wrap justify-end gap-6">
+            <nav className="flex flex-nowrap justify-center lg:justify-end gap-6 max-md:gap-2">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  className="relative text-sm text-white/50 hover:text-white transition-colors duration-200 cursor-pointer group"
+                  className="relative text-sm max-md:text-xs whitespace-nowrap text-white/50 hover:text-white transition-colors duration-200 cursor-pointer group"
                 >
                   {link.label}
                   <span className="absolute -bottom-1 left-0 w-0 h-px bg-white/40 group-hover:w-full transition-all duration-300" />
