@@ -1,8 +1,7 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import { Reveal, TextReveal } from "./motion";
+import { motion } from "framer-motion";
+import { Reveal, SwipeCarousel, TextReveal } from "./motion";
 
 const points = [
   {
@@ -70,30 +69,10 @@ const points = [
   },
 ];
 
-function CascadeGrid({ children }: { children: React.ReactNode[] }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      variants={{
-        hidden: {},
-        visible: { transition: { staggerChildren: 0.1 } },
-      }}
-      className="flex md:grid overflow-x-auto md:overflow-visible max-md:snap-x max-md:snap-mandatory no-scrollbar max-md:-mx-6 max-md:px-6 max-md:pb-4 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
-    >
-      {children}
-    </motion.div>
-  );
-}
-
 export default function WhyOspia() {
   return (
-    <section id="pourquoi" className="relative pt-0 pb-24 lg:pb-32 bg-bg-secondary overflow-hidden">
-      <div className="h-32 bg-gradient-to-b from-bg-secondary to-bg-secondary" />
+    <section id="pourquoi" className="relative pt-0 pb-24 lg:pb-32 max-md:pb-14 bg-bg-secondary overflow-hidden">
+      <div className="h-32 max-md:h-14 bg-gradient-to-b from-bg-secondary to-bg-secondary" />
 
       {/* Background floating shapes */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -125,7 +104,7 @@ export default function WhyOspia() {
           </h2>
         </Reveal>
 
-        <CascadeGrid>
+        <SwipeCarousel className="flex md:grid overflow-x-auto md:overflow-visible max-md:snap-x max-md:snap-mandatory no-scrollbar max-md:-mx-6 max-md:px-6 max-md:pb-4 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8" staggerDelay={0.1}>
           {points.map((p, i) => (
             <motion.div
               key={i}
@@ -145,7 +124,7 @@ export default function WhyOspia() {
               </div>
             </motion.div>
           ))}
-        </CascadeGrid>
+        </SwipeCarousel>
       </div>
     </section>
   );

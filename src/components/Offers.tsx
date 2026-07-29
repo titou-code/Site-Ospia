@@ -2,7 +2,7 @@
 
 import { useState, useEffect, type ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Reveal, StaggerContainer, StaggerItem } from "./motion";
+import { Reveal, SwipeCarousel, StaggerContainer, StaggerItem } from "./motion";
 
 const offers = [
   {
@@ -447,9 +447,9 @@ export default function Offers() {
   }, [activePopup]);
 
   return (
-    <section id="offres" className="relative pt-0 pb-24 lg:pb-32 bg-bg-primary">
+    <section id="offres" className="relative pt-0 pb-24 lg:pb-32 max-md:pb-14 bg-bg-primary">
       {/* Gradient transition — suit la section Constat (fond blanc) */}
-      <div className="h-32 bg-gradient-to-b from-bg-primary to-bg-primary" />
+      <div className="h-32 max-md:h-14 bg-gradient-to-b from-bg-primary to-bg-primary" />
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <Reveal className="text-center max-w-3xl mx-auto mb-16">
@@ -466,7 +466,7 @@ export default function Offers() {
           </p>
         </Reveal>
 
-        <StaggerContainer
+        <SwipeCarousel
           className="flex md:grid overflow-x-auto md:overflow-visible max-md:snap-x max-md:snap-mandatory no-scrollbar max-md:-mx-6 max-md:px-6 max-md:pb-4 md:grid-cols-1 lg:grid-cols-3 gap-8"
           staggerDelay={0.12}
         >
@@ -543,7 +543,7 @@ export default function Offers() {
               </div>
             </StaggerItem>
           ))}
-        </StaggerContainer>
+        </SwipeCarousel>
 
         {/* 4 guarantees — no animations */}
         <StaggerContainer className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-16 max-w-6xl mx-auto" staggerDelay={0.1}>
