@@ -106,10 +106,9 @@ function BrowserChrome({ url }: { url: string }) {
   );
 }
 
-function FloatingBadge({ text, position }: { text: string; position: "tr" | "bl" }) {
-  const pos = position === "tr" ? "-top-3 -right-3" : "-bottom-3 -left-3";
+function FloatingBadge({ text }: { text: string }) {
   return (
-    <div className={`absolute ${pos} max-w-[70%] bg-white rounded-lg shadow-lg border border-border px-3 py-2 flex items-center gap-2`}>
+    <div className="inline-flex items-center gap-2 bg-white rounded-lg shadow-sm border border-border px-3 py-1.5">
       <span className="w-2 h-2 rounded-full bg-blue-accent flex-shrink-0" />
       <span className="text-[11px] font-semibold text-navy leading-tight">{text}</span>
     </div>
@@ -118,13 +117,16 @@ function FloatingBadge({ text, position }: { text: string; position: "tr" | "bl"
 
 function MockupShell({ url, badge1, badge2, children }: { url: string; badge1: string; badge2: string; children: ReactNode }) {
   return (
-    <div className="relative">
+    <div>
       <div className="rounded-lg border border-border bg-white shadow-lg overflow-hidden aspect-[16/10] flex flex-col">
         <BrowserChrome url={url} />
         <div className="flex-1 flex min-h-0">{children}</div>
       </div>
-      <FloatingBadge text={badge1} position="tr" />
-      <FloatingBadge text={badge2} position="bl" />
+      {/* Bulles informatives placées sous le mockup, sans le recouvrir */}
+      <div className="mt-3 flex flex-wrap justify-center gap-2">
+        <FloatingBadge text={badge1} />
+        <FloatingBadge text={badge2} />
+      </div>
     </div>
   );
 }
@@ -141,9 +143,9 @@ function Skel({ w = "100%", h = 3, className = "" }: { w?: string | number; h?: 
 function MockSidebar({ items, active }: { items: string[]; active: number }) {
   return (
     <div className="bg-navy flex flex-col gap-[3px] py-1.5 px-1 w-[23%] min-w-[44px] flex-shrink-0">
-      <div className="flex items-center gap-1 px-0.5 mb-1">
-        <div className="w-2 h-2 rounded-[2px] bg-gradient-to-br from-blue-accent to-blue-light flex-shrink-0" />
-        <span className="text-[7px] font-bold text-white tracking-wide truncate">Ospia</span>
+      <div className="px-0.5 mb-1">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/logo-dark.png" alt="Ospia" className="h-3 w-auto max-w-full object-contain" />
       </div>
       {items.map((it, i) => (
         <div key={i} className={`flex items-center gap-1 rounded-[3px] px-1 py-[2px] ${i === active ? "bg-white/15" : ""}`}>
@@ -475,7 +477,7 @@ export default function Offers() {
                 {/* "En savoir +" detail button */}
                 <button
                   onClick={() => setActivePopup(offer.name)}
-                  className="absolute top-4 right-4 z-10 px-3 py-1 rounded-full bg-navy/5 hover:bg-blue-accent/15 text-xs font-medium text-navy/50 hover:text-blue-accent transition-all duration-200 cursor-pointer"
+                  className="absolute top-4 right-4 z-10 px-3.5 py-1.5 rounded-full bg-blue-accent hover:bg-blue-deep text-xs font-semibold text-white shadow-sm shadow-blue-accent/30 hover:shadow-md transition-all duration-200 cursor-pointer"
                   aria-label={`Voir le détail de ${offer.name}`}
                 >
                   En savoir +

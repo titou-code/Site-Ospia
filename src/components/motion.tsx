@@ -252,7 +252,6 @@ export function GlowButton({
 }) {
   return (
     <a href={href} className={`group relative inline-flex cursor-pointer ${className}`}>
-      <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-blue-accent via-blue-deep to-blue-light opacity-40 blur-lg group-hover:opacity-70 transition-opacity duration-500 animate-glow-pulse" />
       <span className="relative inline-flex items-center justify-center rounded-lg bg-navy px-6 py-3 text-sm font-semibold text-white overflow-hidden">
         <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
         <span className="relative">{children}</span>

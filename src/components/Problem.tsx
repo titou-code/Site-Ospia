@@ -67,15 +67,15 @@ export default function Problem() {
 
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8" staggerDelay={0.12}>
           {problems.map((p, i) => (
-            <StaggerItem key={i}>
-              <div className="group relative rounded-2xl border border-border bg-white p-8 hover:border-blue-accent/30 hover:shadow-xl hover:shadow-blue-accent/10 transition-all duration-300 cursor-default">
+            <StaggerItem key={i} className="h-full">
+              <div className="group relative rounded-2xl border border-border bg-white p-8 hover:border-blue-accent/30 hover:shadow-xl hover:shadow-blue-accent/10 transition-all duration-300 cursor-default h-full">
                 <div className="flex items-start gap-5">
                   <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-navy/5 flex items-center justify-center text-navy group-hover:bg-blue-accent/10 group-hover:text-blue-accent transition-colors duration-300">
                     {p.icon}
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-navy mb-2">{p.title}</h3>
-                    <p className="text-text-secondary leading-relaxed">{p.desc}</p>
+                    <p className="text-text-secondary leading-relaxed text-justify">{p.desc}</p>
                   </div>
                 </div>
               </div>

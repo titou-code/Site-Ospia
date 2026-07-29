@@ -113,7 +113,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.4 }}
-          className="mt-16 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-sm text-text-muted"
+          className="mt-16 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-base font-semibold text-navy"
         >
           {["Audit gratuit", "Devis sous 48h", "100% propriétaire"].map((item, i) => (
             <motion.div
@@ -123,7 +123,7 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 1.5 + i * 0.15 }}
               className="flex items-center gap-2"
             >
-              <svg className="w-5 h-5 text-blue-accent" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+              <svg className="w-6 h-6 text-blue-accent" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
               </svg>
               {item}
