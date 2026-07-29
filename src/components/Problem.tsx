@@ -65,9 +65,9 @@ export default function Problem() {
           </p>
         </Reveal>
 
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8" staggerDelay={0.12}>
+        <StaggerContainer className="flex md:grid overflow-x-auto md:overflow-visible max-md:snap-x max-md:snap-mandatory no-scrollbar max-md:-mx-6 max-md:px-6 max-md:pb-4 md:grid-cols-2 gap-6 lg:gap-8" staggerDelay={0.12}>
           {problems.map((p, i) => (
-            <StaggerItem key={i} className="h-full">
+            <StaggerItem key={i} className="h-full max-md:w-[82%] max-md:shrink-0 max-md:snap-center">
               <div className="group relative rounded-2xl border border-border bg-white p-8 hover:border-blue-accent/30 hover:shadow-xl hover:shadow-blue-accent/10 transition-all duration-300 cursor-default h-full">
                 <div className="flex items-start gap-5">
                   <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-navy/5 flex items-center justify-center text-navy group-hover:bg-blue-accent/10 group-hover:text-blue-accent transition-colors duration-300">

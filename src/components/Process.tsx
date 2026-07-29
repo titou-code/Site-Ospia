@@ -102,7 +102,7 @@ function TimelineStep({
       initial={{ opacity: 0, x: isEven ? -40 : 40 }}
       animate={isInView ? { opacity: 1, x: 0 } : {}}
       transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-      className={`relative flex flex-col lg:flex-row items-start gap-6 lg:gap-12 ${
+      className={`relative flex flex-col lg:flex-row items-start gap-6 lg:gap-12 max-md:pl-14 ${
         isEven ? "lg:flex-row" : "lg:flex-row-reverse"
       }`}
     >
@@ -132,6 +132,16 @@ function TimelineStep({
           <h3 className="text-lg font-semibold text-navy mb-2">{step.title}</h3>
           <p className="text-text-secondary leading-relaxed">{step.desc}</p>
         </motion.div>
+      </div>
+
+      {/* Dot mobile sur la ligne de progression */}
+      <div className="md:hidden absolute left-6 -translate-x-1/2 top-7 z-10">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={isInView ? { scale: 1 } : {}}
+          transition={{ duration: 0.4, delay: 0.15, type: "spring", stiffness: 300 }}
+          className="w-4 h-4 rounded-full bg-blue-accent border-4 border-bg-secondary shadow-sm"
+        />
       </div>
 
       <div ref={dotRef} className="hidden lg:flex absolute left-1/2 -translate-x-1/2 top-8 z-10">
@@ -215,9 +225,9 @@ export default function Process() {
         </Reveal>
 
         <div className="relative" ref={containerRef}>
-          <div className="absolute left-6 lg:left-1/2 top-0 bottom-0 w-px bg-border hidden md:block" />
+          <div className="absolute left-6 lg:left-1/2 top-0 bottom-0 w-px bg-border" />
           <motion.div
-            className="absolute left-6 lg:left-1/2 top-0 w-px bg-gradient-to-b from-blue-accent/80 to-blue-light/85 hidden md:block origin-top"
+            className="absolute left-6 lg:left-1/2 top-0 w-px bg-gradient-to-b from-blue-accent/80 to-blue-light/85 origin-top"
             style={{ height: lineHeight }}
           />
 

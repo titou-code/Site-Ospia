@@ -252,7 +252,7 @@ export function GlowButton({
 }) {
   return (
     <a href={href} className={`group relative inline-flex cursor-pointer ${className}`}>
-      <span className="relative inline-flex items-center justify-center rounded-lg bg-navy px-6 py-3 text-sm font-semibold text-white overflow-hidden">
+      <span className="relative inline-flex items-center justify-center rounded-lg bg-navy px-6 py-3 text-sm font-semibold text-white overflow-hidden max-sm:w-full">
         <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
         <span className="relative">{children}</span>
       </span>

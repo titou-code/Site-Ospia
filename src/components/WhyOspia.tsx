@@ -83,7 +83,7 @@ function CascadeGrid({ children }: { children: React.ReactNode[] }) {
         hidden: {},
         visible: { transition: { staggerChildren: 0.1 } },
       }}
-      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+      className="flex md:grid overflow-x-auto md:overflow-visible max-md:snap-x max-md:snap-mandatory no-scrollbar max-md:-mx-6 max-md:px-6 max-md:pb-4 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
     >
       {children}
     </motion.div>
@@ -134,6 +134,7 @@ export default function WhyOspia() {
                 visible: { opacity: 1, y: 0, scale: 1 },
               }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="max-md:w-[78%] max-md:shrink-0 max-md:snap-center"
             >
               <div className="group rounded-2xl border border-border bg-white p-8 hover:border-blue-accent/30 hover:shadow-xl hover:shadow-blue-accent/10 transition-all duration-300 cursor-default h-full">
                 <div className="w-12 h-12 rounded-xl bg-navy/5 flex items-center justify-center text-navy mb-5 group-hover:bg-blue-accent/10 group-hover:text-blue-accent transition-colors duration-300">

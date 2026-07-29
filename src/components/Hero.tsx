@@ -93,7 +93,7 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 1.1, ease: [0.22, 1, 0.36, 1] }}
           className="mt-10 flex flex-col sm:flex-row gap-3 justify-center items-center"
         >
-          <GlowButton href="#contact" className="text-sm whitespace-nowrap">
+          <GlowButton href="#contact" className="text-sm whitespace-nowrap max-sm:w-full">
             <span className="inline-flex items-center gap-2">
               Demander mon audit gratuit
               <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
@@ -103,7 +103,7 @@ export default function Hero() {
           </GlowButton>
           <a
             href="#offres"
-            className="inline-flex items-center justify-center rounded-lg border border-navy/20 bg-white/80 backdrop-blur-sm px-6 py-3 text-sm font-semibold text-navy hover:bg-navy/5 transition-all duration-200 cursor-pointer"
+            className="inline-flex items-center justify-center rounded-lg border border-navy/20 bg-white/80 backdrop-blur-sm px-6 py-3 text-sm font-semibold text-navy hover:bg-navy/5 transition-all duration-200 cursor-pointer max-sm:w-full"
           >
             Voir nos offres
           </a>

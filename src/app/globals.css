@@ -97,6 +97,15 @@ body {
   50% { box-shadow: 0 0 20px 8px rgba(58, 127, 193, 0.2); }
 }
 
+/* Carrousels mobiles : masque la scrollbar (aucun impact desktop, conteneurs md:overflow-visible) */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,

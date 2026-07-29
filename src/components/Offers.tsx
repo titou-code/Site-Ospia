@@ -416,6 +416,16 @@ function OfferMockup({ name }: { name: string }) {
 
 export default function Offers() {
   const [activePopup, setActivePopup] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Détection mobile (< md) pour transformer la popup en bottom sheet — n'affecte pas le desktop
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   useEffect(() => {
     if (!activePopup) return;
@@ -457,11 +467,11 @@ export default function Offers() {
         </Reveal>
 
         <StaggerContainer
-          className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+          className="flex md:grid overflow-x-auto md:overflow-visible max-md:snap-x max-md:snap-mandatory no-scrollbar max-md:-mx-6 max-md:px-6 max-md:pb-4 md:grid-cols-1 lg:grid-cols-3 gap-8"
           staggerDelay={0.12}
         >
           {offers.map((offer, i) => (
-            <StaggerItem key={i}>
+            <StaggerItem key={i} className="max-md:w-[85%] max-md:shrink-0 max-md:snap-center">
               <div
                 className={`group relative flex flex-col rounded-2xl border bg-white overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-navy/10 cursor-default h-full ${
                   offer.featured
@@ -536,7 +546,7 @@ export default function Offers() {
         </StaggerContainer>
 
         {/* 4 guarantees — no animations */}
-        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-16 max-w-6xl mx-auto" staggerDelay={0.1}>
+        <StaggerContainer className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-16 max-w-6xl mx-auto" staggerDelay={0.1}>
           {[
             {
               icon: (
@@ -577,7 +587,7 @@ export default function Offers() {
             },
           ].map((g, i) => (
             <StaggerItem key={i}>
-              <div className="text-center p-6">
+              <div className="text-center p-6 max-sm:p-3">
                 <div className="w-14 h-14 rounded-2xl bg-blue-accent/10 flex items-center justify-center text-blue-accent mx-auto mb-4">
                   {g.icon}
                 </div>
@@ -608,7 +618,7 @@ export default function Offers() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-50 flex items-center justify-center p-4"
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 max-md:items-end max-md:p-0"
               onClick={() => setActivePopup(null)}
             >
               <motion.div
@@ -619,17 +629,21 @@ export default function Offers() {
                 className="absolute inset-0 bg-navy/60 backdrop-blur-sm"
               />
               <motion.div
-                initial={{ scale: 0.92, opacity: 0, y: 24 }}
-                animate={{ scale: 1, opacity: 1, y: 0 }}
-                exit={{ scale: 0.96, opacity: 0 }}
-                transition={{ type: "spring", damping: 22, stiffness: 280 }}
+                initial={isMobile ? { y: "100%" } : { scale: 0.92, opacity: 0, y: 24 }}
+                animate={isMobile ? { y: 0 } : { scale: 1, opacity: 1, y: 0 }}
+                exit={isMobile ? { y: "100%" } : { scale: 0.96, opacity: 0 }}
+                transition={isMobile ? { type: "spring", damping: 32, stiffness: 320 } : { type: "spring", damping: 22, stiffness: 280 }}
                 role="dialog"
                 aria-modal="true"
                 aria-label={activePopup}
-                className="relative bg-white rounded-2xl border border-border shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+                className="relative bg-white rounded-2xl border border-border shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto max-md:rounded-b-none max-md:max-h-[88vh]"
                 onClick={(e) => e.stopPropagation()}
               >
-                <div className="sticky top-0 bg-white/95 backdrop-blur-sm border-b border-border/50 px-8 py-5 flex items-center justify-between rounded-t-2xl z-10">
+                {/* Poignée de bottom sheet (mobile) */}
+                <div className="md:hidden flex justify-center pt-3 pb-1">
+                  <div className="w-10 h-1 rounded-full bg-navy/15" />
+                </div>
+                <div className="sticky top-0 bg-white/95 backdrop-blur-sm border-b border-border/50 px-8 py-5 max-md:px-5 max-md:py-4 flex items-center justify-between rounded-t-2xl z-10">
                   <motion.h3 {...staggerItem()} className="text-xl font-bold text-navy">{activePopup}</motion.h3>
                   <button
                     onClick={() => setActivePopup(null)}
@@ -643,7 +657,7 @@ export default function Offers() {
                   </button>
                 </div>
 
-                <div className="px-8 py-6 space-y-6">
+                <div className="px-8 py-6 max-md:px-5 space-y-6">
                   {data.preamble && (
                     <motion.p {...staggerItem()} className="text-text-secondary font-medium leading-relaxed">
                       {data.preamble}
