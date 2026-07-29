@@ -13,7 +13,6 @@ import {
   useRef,
   useEffect,
   useState,
-  useCallback,
   type ReactNode,
   type MouseEvent as ReactMouseEvent,
 } from "react";
@@ -110,120 +109,6 @@ export function StaggerItem({
     >
       {children}
     </motion.div>
-  );
-}
-
-// Carrousel mobile swipeable : effet coverflow (carte centrale mise en avant, voisines
-// atténuées/réduites) + flèches de navigation. Desktop (>=768px) : grille inchangée, aucune flèche.
-export function SwipeCarousel({
-  children,
-  className,
-  staggerDelay = 0.1,
-}: {
-  children: ReactNode;
-  className: string;
-  staggerDelay?: number;
-}) {
-  const wrapRef = useRef<HTMLDivElement>(null);
-  const scrollerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(wrapRef, { once: true, margin: "-80px" });
-
-  const applyCoverflow = useCallback(() => {
-    const el = scrollerRef.current;
-    if (!el) return;
-    const items = Array.from(el.children) as HTMLElement[];
-    const mobile = window.matchMedia("(max-width: 767px)").matches;
-    if (!mobile) {
-      // Desktop : on efface tout style inline éventuel (grille intacte)
-      items.forEach((it) => {
-        const card = it.firstElementChild as HTMLElement | null;
-        if (card) {
-          card.style.transform = "";
-          card.style.opacity = "";
-          card.style.transition = "";
-        }
-      });
-      return;
-    }
-    const rect = el.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    items.forEach((it) => {
-      const card = it.firstElementChild as HTMLElement | null;
-      if (!card) return;
-      const r = it.getBoundingClientRect();
-      const itemCenter = r.left + r.width / 2;
-      const ratio = Math.min(Math.abs(centerX - itemCenter) / r.width, 1);
-      card.style.transformOrigin = "center center";
-      card.style.transform = `scale(${(1 - ratio * 0.13).toFixed(3)})`;
-      card.style.opacity = `${(1 - ratio * 0.55).toFixed(3)}`;
-      card.style.transition = "transform 0.2s ease-out, opacity 0.2s ease-out";
-    });
-  }, []);
-
-  useEffect(() => {
-    const el = scrollerRef.current;
-    if (!el) return;
-    let raf = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(applyCoverflow);
-    };
-    const mq = window.matchMedia("(max-width: 767px)");
-    el.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", applyCoverflow);
-    mq.addEventListener("change", applyCoverflow); // efface/applique au franchissement 768px
-    applyCoverflow();
-    const t = setTimeout(applyCoverflow, 120);
-    return () => {
-      el.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", applyCoverflow);
-      mq.removeEventListener("change", applyCoverflow);
-      cancelAnimationFrame(raf);
-      clearTimeout(t);
-    };
-  }, [applyCoverflow]);
-
-  const scrollByCard = (dir: number) => {
-    const el = scrollerRef.current;
-    if (!el) return;
-    const first = el.children[0] as HTMLElement | undefined;
-    const step = first ? first.getBoundingClientRect().width + 24 : el.clientWidth * 0.8;
-    el.scrollBy({ left: dir * step, behavior: "smooth" });
-  };
-
-  return (
-    <div ref={wrapRef} className="relative">
-      <motion.div
-        ref={scrollerRef}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        variants={{ hidden: {}, visible: { transition: { staggerChildren: staggerDelay } } }}
-        className={className}
-      >
-        {children}
-      </motion.div>
-
-      <button
-        type="button"
-        aria-label="Carte précédente"
-        onClick={() => scrollByCard(-1)}
-        className="md:hidden absolute left-0 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white/95 shadow-lg border border-border flex items-center justify-center text-navy active:scale-90 transition-transform cursor-pointer"
-      >
-        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-        </svg>
-      </button>
-      <button
-        type="button"
-        aria-label="Carte suivante"
-        onClick={() => scrollByCard(1)}
-        className="md:hidden absolute right-0 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white/95 shadow-lg border border-border flex items-center justify-center text-navy active:scale-90 transition-transform cursor-pointer"
-      >
-        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-        </svg>
-      </button>
-    </div>
   );
 }
 

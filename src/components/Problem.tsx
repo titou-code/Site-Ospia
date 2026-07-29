@@ -1,6 +1,6 @@
 "use client";
 
-import { Reveal, SwipeCarousel, StaggerItem, TextReveal } from "./motion";
+import { Reveal, StaggerContainer, StaggerItem, TextReveal } from "./motion";
 
 const problems = [
   {
@@ -46,7 +46,7 @@ const problems = [
 
 export default function Problem() {
   return (
-    <section id="constat" className="py-24 lg:py-32 max-md:py-14 bg-bg-primary">
+    <section id="constat" className="py-24 lg:py-32 bg-bg-primary">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <Reveal className="text-center max-w-3xl mx-auto mb-16">
           <p className="text-sm font-semibold text-blue-accent tracking-wide uppercase mb-3">
@@ -65,9 +65,9 @@ export default function Problem() {
           </p>
         </Reveal>
 
-        <SwipeCarousel className="flex md:grid overflow-x-auto md:overflow-visible max-md:snap-x max-md:snap-mandatory no-scrollbar max-md:-mx-6 max-md:px-6 max-md:pb-4 md:grid-cols-2 gap-6 lg:gap-8" staggerDelay={0.12}>
+        <StaggerContainer className="flex md:grid overflow-x-auto md:overflow-visible max-md:snap-x max-md:snap-mandatory no-scrollbar max-md:-mx-6 max-md:px-6 max-md:pb-4 md:grid-cols-2 gap-6 lg:gap-8" staggerDelay={0.12}>
           {problems.map((p, i) => (
-            <StaggerItem key={i} className="max-md:w-[82%] max-md:shrink-0 max-md:snap-center">
+            <StaggerItem key={i} className="h-full max-md:w-[82%] max-md:shrink-0 max-md:snap-center">
               <div className="group relative rounded-2xl border border-border bg-white p-8 hover:border-blue-accent/30 hover:shadow-xl hover:shadow-blue-accent/10 transition-all duration-300 cursor-default h-full">
                 <div className="flex items-start gap-5">
                   <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-navy/5 flex items-center justify-center text-navy group-hover:bg-blue-accent/10 group-hover:text-blue-accent transition-colors duration-300">
@@ -81,7 +81,7 @@ export default function Problem() {
               </div>
             </StaggerItem>
           ))}
-        </SwipeCarousel>
+        </StaggerContainer>
       </div>
     </section>
   );
