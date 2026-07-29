@@ -85,12 +85,16 @@ function TimelineStep({
   step,
   index,
   isActive,
+  isActiveMobile,
   dotRef,
+  mobileDotRef,
 }: {
   step: (typeof steps)[0];
   index: number;
   isActive: boolean;
+  isActiveMobile: boolean;
   dotRef: (el: HTMLDivElement | null) => void;
+  mobileDotRef: (el: HTMLDivElement | null) => void;
 }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -134,13 +138,16 @@ function TimelineStep({
         </motion.div>
       </div>
 
-      {/* Dot mobile sur la ligne de progression */}
-      <div className="md:hidden absolute left-6 -translate-x-1/2 top-7 z-10">
+      {/* Dot mobile sur la ligne de progression — s'allume/s'éteint selon le trait */}
+      <div ref={mobileDotRef} className="md:hidden absolute left-6 -translate-x-1/2 top-7 z-10">
         <motion.div
           initial={{ scale: 0 }}
           animate={isInView ? { scale: 1 } : {}}
           transition={{ duration: 0.4, delay: 0.15, type: "spring", stiffness: 300 }}
-          className="w-4 h-4 rounded-full bg-blue-accent border-4 border-bg-secondary shadow-sm"
+          className={`w-4 h-4 rounded-full border-4 border-bg-secondary shadow-sm transition-colors duration-300 ${
+            isActiveMobile ? "bg-blue-accent" : "bg-border"
+          }`}
+          style={isActiveMobile ? { animation: "pulse-glow 2.5s ease-in-out infinite" } : {}}
         />
       </div>
 
@@ -173,6 +180,7 @@ function TimelineStep({
 export default function Process() {
   const containerRef = useRef<HTMLDivElement>(null);
   const dotRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const mobileDotRefs = useRef<(HTMLDivElement | null)[]>([]);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start 0.8", "end 0.6"],
@@ -180,9 +188,14 @@ export default function Process() {
   const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [mobileActiveIndex, setMobileActiveIndex] = useState(-1);
 
   const setDotRef = useCallback((index: number) => (el: HTMLDivElement | null) => {
     dotRefs.current[index] = el;
+  }, []);
+
+  const setMobileDotRef = useCallback((index: number) => (el: HTMLDivElement | null) => {
+    mobileDotRefs.current[index] = el;
   }, []);
 
   useMotionValueEvent(scrollYProgress, "change", () => {
@@ -190,26 +203,33 @@ export default function Process() {
     if (!container) return;
 
     const containerRect = container.getBoundingClientRect();
-    const containerTop = container.offsetTop;
     const containerHeight = container.offsetHeight;
     const linePixelHeight = scrollYProgress.get() * containerHeight;
 
-    let newActive = -1;
-    for (let i = 0; i < dotRefs.current.length; i++) {
-      const dot = dotRefs.current[i];
-      if (!dot) continue;
-      const dotRect = dot.getBoundingClientRect();
-      const dotOffsetInContainer = dotRect.top - containerRect.top + dotRect.height / 2;
-      if (linePixelHeight >= dotOffsetInContainer) {
-        newActive = i;
+    // Les dots desktop (lg:flex) et mobile (md:hidden) ne sont visibles qu'à leur breakpoint
+    // (l'autre est display:none => rect à 0), donc on saute ceux qui sont masqués.
+    const computeActive = (refs: (HTMLDivElement | null)[]) => {
+      let newActive = -1;
+      for (let i = 0; i < refs.length; i++) {
+        const dot = refs[i];
+        if (!dot) continue;
+        const dotRect = dot.getBoundingClientRect();
+        if (dotRect.height === 0 && dotRect.top === 0) continue;
+        const dotOffsetInContainer = dotRect.top - containerRect.top + dotRect.height / 2;
+        if (linePixelHeight >= dotOffsetInContainer) {
+          newActive = i;
+        }
       }
-    }
-    setActiveIndex(newActive);
+      return newActive;
+    };
+
+    setActiveIndex(computeActive(dotRefs.current));
+    setMobileActiveIndex(computeActive(mobileDotRefs.current));
   });
 
   return (
-    <section id="process" className="relative pt-0 pb-24 lg:pb-32 bg-bg-secondary">
-      <div className="h-32 bg-gradient-to-b from-white to-bg-secondary" />
+    <section id="process" className="relative pt-0 pb-24 lg:pb-32 max-md:pb-14 bg-bg-secondary">
+      <div className="h-32 max-md:h-14 bg-gradient-to-b from-white to-bg-secondary" />
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <Reveal className="text-center max-w-3xl mx-auto mb-16">
           <p className="text-sm font-semibold text-blue-accent tracking-wide uppercase mb-3">
@@ -233,9 +253,8 @@ export default function Process() {
 
           {/* Diamant 3D au bout de la ligne */}
           <motion.div
-            className="absolute hidden md:block pointer-events-none"
+            className="absolute max-md:left-6 md:left-1/2 pointer-events-none"
             style={{
-              left: "50%",
               transform: "translateX(-50%)",
               width: 28,
               height: 34,
@@ -263,7 +282,9 @@ export default function Process() {
                 step={step}
                 index={i}
                 isActive={i <= activeIndex}
+                isActiveMobile={i <= mobileActiveIndex}
                 dotRef={setDotRef(i)}
+                mobileDotRef={setMobileDotRef(i)}
               />
             ))}
           </div>

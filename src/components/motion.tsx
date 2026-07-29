@@ -13,6 +13,8 @@ import {
   useRef,
   useEffect,
   useState,
+  useCallback,
+  Children,
   type ReactNode,
   type MouseEvent as ReactMouseEvent,
 } from "react";
@@ -109,6 +111,151 @@ export function StaggerItem({
     >
       {children}
     </motion.div>
+  );
+}
+
+// Carrousel mobile à focus : la carte centrée est mise en avant (pleine opacité + ombre),
+// les voisines sont réduites, atténuées et légèrement floutées. Points de pagination + flèches
+// optionnelles. Desktop (>=768px) : grille inchangée, styles inline effacés, indicateurs masqués.
+export function FocusCarousel({
+  children,
+  className,
+  staggerDelay = 0.1,
+  arrows = false,
+}: {
+  children: ReactNode;
+  className: string;
+  staggerDelay?: number;
+  arrows?: boolean;
+}) {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(wrapRef, { once: true, margin: "-80px" });
+  const [active, setActive] = useState(0);
+  const count = Children.count(children);
+
+  const update = useCallback(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const items = Array.from(el.children) as HTMLElement[];
+    const mobile = window.matchMedia("(max-width: 767px)").matches;
+    if (!mobile) {
+      items.forEach((it) => {
+        const c = it.firstElementChild as HTMLElement | null;
+        if (c) {
+          c.style.transform = "";
+          c.style.opacity = "";
+          c.style.filter = "";
+          c.style.boxShadow = "";
+          c.style.transition = "";
+        }
+      });
+      return;
+    }
+    const rect = el.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    let best = 0;
+    let bestDist = Infinity;
+    items.forEach((it, i) => {
+      const c = it.firstElementChild as HTMLElement | null;
+      if (!c) return;
+      const r = it.getBoundingClientRect();
+      const d = Math.abs(centerX - (r.left + r.width / 2));
+      if (d < bestDist) {
+        bestDist = d;
+        best = i;
+      }
+      const ratio = Math.min(d / r.width, 1);
+      c.style.transformOrigin = "center center";
+      c.style.transform = `scale(${(1 - ratio * 0.14).toFixed(3)})`;
+      c.style.opacity = (1 - ratio * 0.55).toFixed(3);
+      c.style.filter = ratio > 0.05 ? `blur(${(ratio * 1.6).toFixed(2)}px)` : "";
+      c.style.boxShadow = `0 24px 48px -18px rgba(26,60,94,${(0.3 * (1 - ratio)).toFixed(3)})`;
+      c.style.transition = "transform 0.3s ease-out, opacity 0.3s ease-out, filter 0.3s ease-out, box-shadow 0.3s ease-out";
+    });
+    setActive(best);
+  }, []);
+
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    };
+    const mq = window.matchMedia("(max-width: 767px)");
+    el.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", update);
+    mq.addEventListener("change", update);
+    update();
+    const t = setTimeout(update, 120);
+    return () => {
+      el.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", update);
+      mq.removeEventListener("change", update);
+      cancelAnimationFrame(raf);
+      clearTimeout(t);
+    };
+  }, [update]);
+
+  const goTo = (i: number) => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const child = el.children[i] as HTMLElement | undefined;
+    if (child) el.scrollTo({ left: child.offsetLeft - (el.clientWidth - child.offsetWidth) / 2, behavior: "smooth" });
+  };
+
+  return (
+    <div ref={wrapRef} className="relative">
+      <motion.div
+        ref={scrollerRef}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        variants={{ hidden: {}, visible: { transition: { staggerChildren: staggerDelay } } }}
+        className={className}
+      >
+        {children}
+      </motion.div>
+
+      {arrows && (
+        <>
+          <button
+            type="button"
+            aria-label="Carte précédente"
+            onClick={() => goTo(Math.max(0, active - 1))}
+            className="md:hidden absolute left-0 top-[38%] -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white/95 shadow-lg border border-border flex items-center justify-center text-navy active:scale-90 transition-transform cursor-pointer"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            aria-label="Carte suivante"
+            onClick={() => goTo(Math.min(count - 1, active + 1))}
+            className="md:hidden absolute right-0 top-[38%] -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white/95 shadow-lg border border-border flex items-center justify-center text-navy active:scale-90 transition-transform cursor-pointer"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+        </>
+      )}
+
+      {/* Points de pagination (mobile) */}
+      <div className="md:hidden flex justify-center items-center gap-2 mt-5">
+        {Array.from({ length: count }).map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            onClick={() => goTo(i)}
+            aria-label={`Aller à la carte ${i + 1}`}
+            className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${i === active ? "w-6 bg-blue-accent" : "w-2 bg-navy/20"}`}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
 
