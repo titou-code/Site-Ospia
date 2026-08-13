@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Ospia — Un pilotage simplifié",
   description:
-    "Ospia conçoit des applications métier sur-mesure et automatise vos processus. Audit gratuit, solution livrée en quelques semaines, vous en êtes propriétaire.",
+    "Ospia conçoit des applications métier sur-mesure et automatise vos processus. Audit gratuit, solution livrée en quelques semaines.",
   icons: [
     {
       rel: "icon",

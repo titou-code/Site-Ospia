@@ -119,7 +119,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 1.4 }}
           className="mt-16 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-base font-semibold text-navy"
         >
-          {["Audit gratuit", "Devis sous 48h", "100% propriétaire"].map((item, i) => (
+          {["Audit gratuit", "Devis sous 48h"].map((item, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, x: -10 }}
