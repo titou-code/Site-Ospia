@@ -73,10 +73,10 @@ export default function Hero() {
           className="text-4xl font-extrabold tracking-tight text-navy sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.1]"
           style={{ textShadow: "0 0 24px rgba(255,255,255,0.8)" }}
         >
-          <TextReveal text="Construit pour vous." delay={0.25} />
+          <TextReveal text="Piloter simplement." delay={0.25} />
           <br />
           <span className="text-blue-accent">
-            <TextReveal text="Pas pour tout le monde." delay={0.55} />
+            <TextReveal text="Performer durablement." delay={0.55} />
           </span>
         </motion.h1>
 

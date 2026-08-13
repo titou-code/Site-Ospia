@@ -528,7 +528,7 @@ export default function Offers() {
                 {/* "En savoir +" detail button */}
                 <button
                   onClick={() => setActivePopup(offer.name)}
-                  className="absolute top-4 right-4 z-10 px-3.5 py-1.5 rounded-full bg-blue-accent hover:bg-blue-deep text-xs font-semibold text-white shadow-sm shadow-blue-accent/30 hover:shadow-md transition-all duration-200 cursor-pointer"
+                  className="absolute top-4 right-4 z-10 px-3.5 py-1.5 rounded-full bg-blue-accent hover:bg-blue-deep text-xs font-semibold text-white shadow-sm shadow-blue-accent/30 hover:shadow-md transition-all duration-200 cursor-pointer animate-pulse-subtle"
                   aria-label={`Voir le détail de ${offer.name}`}
                 >
                   En savoir +

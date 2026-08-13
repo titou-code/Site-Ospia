@@ -11,7 +11,7 @@ const steps = [
   {
     num: "01",
     title: "Audit initial gratuit",
-    desc: "Visio de 30 minutes, sans engagement. Nous écoutons, nous comprenons votre métier et vos douleurs.",
+    desc: "Visio de 30 minutes, sans engagement. Nous écoutons, nous comprenons votre métier et vos besoins.",
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
@@ -71,7 +71,7 @@ const steps = [
   },
   {
     num: "07",
-    title: "Relation long terme",
+    title: "Un partenariat durable",
     desc: "Votre activité évolue, votre outil doit suivre. Nous restons à vos côtés pour le faire évoluer avec vous.",
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">

@@ -41,6 +41,7 @@
   --animate-spin-slow: spin 20s linear infinite;
   --animate-pulse-glow: pulse-glow 2.5s ease-in-out infinite;
   --animate-marquee: marquee 30s linear infinite;
+  --animate-pulse-subtle: pulse-subtle 2s ease-in-out infinite;
 }
 
 html {
@@ -102,6 +103,12 @@ body {
 @keyframes marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
+}
+
+/* Pulsation douce des boutons "En savoir +" pour signaler qu'ils sont cliquables */
+@keyframes pulse-subtle {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
 }
 
 /* Carrousels mobiles : masque la scrollbar (aucun impact desktop, conteneurs md:overflow-visible) */
