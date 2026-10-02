@@ -45,7 +45,14 @@ export default function Footer() {
           <p className="text-xs text-white/30">
             &copy; {new Date().getFullYear()} Ospia. Tous droits réservés.
           </p>
-          {/* Liens mentions légales masqués temporairement */}
+          <nav className="flex items-center gap-6">
+            <a href="/mentions-legales/" className="text-xs text-white/30 hover:text-white/70 transition-colors duration-200">
+              Mentions légales
+            </a>
+            <a href="/politique-de-confidentialite/" className="text-xs text-white/30 hover:text-white/70 transition-colors duration-200">
+              Politique de confidentialité
+            </a>
+          </nav>
         </div>
       </div>
     </footer>

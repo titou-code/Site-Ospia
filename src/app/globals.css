@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
-
 @import "tailwindcss";
 
 :root {
@@ -32,7 +30,7 @@
   --color-text-muted: var(--text-muted);
   --color-border: var(--border);
   --color-border-light: var(--border-light);
-  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
   --animate-glow-pulse: glow-pulse 3s ease-in-out infinite;
   --animate-float-1: float-1 8s ease-in-out infinite;
   --animate-float-2: float-2 10s ease-in-out infinite;
@@ -51,7 +49,7 @@ html {
 body {
   background: var(--bg-primary);
   color: var(--text-primary);
-  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-family: var(--font-jakarta), system-ui, sans-serif;
 }
 
 ::selection {

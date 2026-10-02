@@ -32,12 +32,11 @@ export default function MentionsLegales() {
                 Éditeur du site
               </h2>
               <p>
-                Le site Ospia est édité par Ospia, [Statut juridique à compléter
-                — auto-entrepreneur / société, à définir].
+                Le site ospia.fr est édité à titre individuel par Titouan
+                Chinchole.
               </p>
               <ul className="mt-3 space-y-1.5 list-none">
-                <li>SIRET : [SIRET à compléter]</li>
-                <li>Adresse : 1 chemin er goh fétan, 56340 Carnac</li>
+                <li>Localisation : Carnac (56), France</li>
                 <li>
                   Email :{" "}
                   <a
@@ -56,7 +55,6 @@ export default function MentionsLegales() {
                     +33 6 49 21 23 65
                   </a>
                 </li>
-                <li>[Mention TVA à compléter — ex. « TVA non applicable, art. 293 B du CGI » si applicable]</li>
               </ul>
             </section>
 
@@ -64,7 +62,7 @@ export default function MentionsLegales() {
               <h2 className="text-xl font-semibold text-navy mb-3">
                 Directeur de la publication
               </h2>
-              <p>[Prénom Nom à compléter]</p>
+              <p>Titouan Chinchole</p>
             </section>
 
             <section>
@@ -72,8 +70,16 @@ export default function MentionsLegales() {
                 Hébergement
               </h2>
               <p>
-                Le site est hébergé par [nom de l&apos;hébergeur à compléter],
-                [adresse de l&apos;hébergeur à compléter].
+                Le site est hébergé par Netlify, Inc., 512 2nd Street, Suite
+                200, San Francisco, CA 94107, États-Unis. Site :{" "}
+                <a
+                  href="https://www.netlify.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-accent hover:underline"
+                >
+                  https://www.netlify.com
+                </a>
               </p>
             </section>
 
@@ -87,6 +93,23 @@ export default function MentionsLegales() {
                 d&apos;Ospia, sauf mention contraire. Toute reproduction,
                 représentation, modification ou exploitation, totale ou
                 partielle, sans autorisation préalable, est interdite.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold text-navy mb-3">
+                Données personnelles
+              </h2>
+              <p>
+                Les informations relatives à la collecte et au traitement de vos
+                données personnelles sont détaillées dans notre{" "}
+                <a
+                  href="/politique-de-confidentialite/"
+                  className="text-blue-accent hover:underline"
+                >
+                  politique de confidentialité
+                </a>
+                .
               </p>
             </section>
           </div>

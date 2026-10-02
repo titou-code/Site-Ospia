@@ -29,34 +29,109 @@ export default function PolitiqueDeConfidentialite() {
           <div className="space-y-10 text-text-secondary leading-relaxed">
             <section>
               <h2 className="text-xl font-semibold text-navy mb-3">
-                Données personnelles
+                Responsable du traitement
               </h2>
               <p>
-                Dans le cadre de l&apos;utilisation du formulaire de contact,
-                Ospia collecte les données suivantes : nom, entreprise, email,
-                téléphone et description du besoin. Ces informations sont
-                utilisées uniquement pour répondre à votre demande et établir,
-                le cas échéant, un devis ou une proposition commerciale.
-              </p>
-              <p className="mt-3">
-                Ces données sont conservées pendant une durée maximale de 3 ans
-                à compter du dernier contact, et ne sont en aucun cas cédées,
-                vendues ou transmises à des tiers.
-              </p>
-              <p className="mt-3">
-                Conformément au Règlement Général sur la Protection des Données
-                (RGPD) et à la loi Informatique et Libertés, vous disposez
-                d&apos;un droit d&apos;accès, de rectification, de suppression
-                et d&apos;opposition concernant vos données personnelles. Pour
-                exercer ces droits, vous pouvez nous contacter à l&apos;adresse{" "}
+                Le responsable du traitement des données collectées sur ce site
+                est Titouan Chinchole, éditeur du site ospia.fr, joignable à
+                l&apos;adresse{" "}
                 <a
                   href="mailto:contact@ospia.fr"
                   className="text-blue-accent hover:underline"
                 >
                   contact@ospia.fr
                 </a>
-                . Vous disposez également du droit d&apos;introduire une
-                réclamation auprès de la CNIL (
+                .
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold text-navy mb-3">
+                Données collectées
+              </h2>
+              <p>
+                Lorsque vous remplissez le formulaire de contact, nous
+                collectons les informations suivantes : nom complet, nom de
+                votre entreprise, adresse email, numéro de téléphone et
+                description de votre besoin. Ces données sont nécessaires pour
+                répondre à votre demande et, le cas échéant, vous proposer un
+                audit ou un devis.
+              </p>
+              <p className="mt-3">
+                La base légale de ce traitement est l&apos;exécution de mesures
+                précontractuelles prises à votre demande (article 6.1.b du
+                RGPD).
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold text-navy mb-3">
+                Durée de conservation
+              </h2>
+              <p>
+                Vos données sont conservées pendant 3 ans à compter de notre
+                dernier échange, puis supprimées.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold text-navy mb-3">
+                Destinataires et sous-traitants
+              </h2>
+              <p>
+                Vos données sont traitées uniquement par l&apos;éditeur du site.
+                Elles ne sont ni vendues, ni cédées, ni transmises à des tiers à
+                des fins commerciales.
+              </p>
+              <p className="mt-3">
+                Le formulaire de contact est opéré par notre hébergeur Netlify,
+                Inc. (États-Unis), qui stocke les soumissions pour nous les
+                transmettre. Netlify adhère au Data Privacy Framework
+                UE–États-Unis, qui encadre ce transfert conformément au RGPD.
+                Vous pouvez consulter sa politique de confidentialité à
+                l&apos;adresse{" "}
+                <a
+                  href="https://www.netlify.com/privacy/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-accent hover:underline"
+                >
+                  https://www.netlify.com/privacy/
+                </a>
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold text-navy mb-3">Cookies</h2>
+              <p>
+                Ce site ne dépose aucun cookie et n&apos;utilise aucun outil de
+                mesure d&apos;audience ni de suivi publicitaire. Aucun bandeau
+                de consentement n&apos;est donc nécessaire.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold text-navy mb-3">
+                Vos droits
+              </h2>
+              <p>
+                Conformément au Règlement Général sur la Protection des Données
+                (RGPD) et à la loi Informatique et Libertés, vous disposez
+                d&apos;un droit d&apos;accès, de rectification,
+                d&apos;effacement, de limitation, d&apos;opposition et de
+                portabilité de vos données. Pour exercer ces droits,
+                écrivez-nous à{" "}
+                <a
+                  href="mailto:contact@ospia.fr"
+                  className="text-blue-accent hover:underline"
+                >
+                  contact@ospia.fr
+                </a>
+                . Nous vous répondons sous un mois.
+              </p>
+              <p className="mt-3">
+                Si vous estimez que vos droits ne sont pas respectés, vous
+                pouvez introduire une réclamation auprès de la CNIL (
                 <a
                   href="https://www.cnil.fr"
                   target="_blank"
@@ -70,23 +145,13 @@ export default function PolitiqueDeConfidentialite() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-navy mb-3">Cookies</h2>
-              <p>
-                Ce site n&apos;utilise pas de cookies de suivi publicitaire ou
-                de profilage. Seuls des cookies techniques, nécessaires au bon
-                fonctionnement du site, peuvent être utilisés.
-              </p>
-            </section>
-
-            <section>
               <h2 className="text-xl font-semibold text-navy mb-3">
-                Responsabilité
+                Mise à jour
               </h2>
               <p>
-                Ospia ne saurait être tenu responsable des dommages directs ou
-                indirects résultant de l&apos;accès ou de l&apos;utilisation de
-                ce site, y compris l&apos;inaccessibilité, les pertes de données
-                ou la présence de virus.
+                Cette politique peut être modifiée pour suivre l&apos;évolution
+                du site ou de la réglementation. Dernière mise à jour : octobre
+                2026.
               </p>
             </section>
           </div>
