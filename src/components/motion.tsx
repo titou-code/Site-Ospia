@@ -15,6 +15,7 @@ import {
   useState,
   useCallback,
   Children,
+  Fragment,
   type ReactNode,
   type MouseEvent as ReactMouseEvent,
 } from "react";
@@ -275,23 +276,25 @@ export function TextReveal({
   return (
     <span ref={ref} className={className}>
       {words.map((word, i) => (
-        <motion.span
-          key={i}
-          initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
-          animate={
-            isInView
-              ? { opacity: 1, y: 0, filter: "blur(0px)" }
-              : { opacity: 0, y: 12, filter: "blur(4px)" }
-          }
-          transition={{
-            duration: 0.4,
-            delay: delay + i * 0.04,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="inline-block mr-[0.25em]"
-        >
-          {word}
-        </motion.span>
+        <Fragment key={i}>
+          <motion.span
+            initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
+            animate={
+              isInView
+                ? { opacity: 1, y: 0, filter: "blur(0px)" }
+                : { opacity: 0, y: 12, filter: "blur(4px)" }
+            }
+            transition={{
+              duration: 0.4,
+              delay: delay + i * 0.04,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="inline-block"
+          >
+            {word}
+          </motion.span>
+          {i < words.length - 1 ? " " : null}
+        </Fragment>
       ))}
     </span>
   );

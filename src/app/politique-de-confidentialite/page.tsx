@@ -3,8 +3,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Politique de confidentialité — Ospia",
+  title: "Politique de confidentialité",
   description: "Politique de confidentialité et protection des données personnelles du site Ospia.",
+  alternates: { canonical: "/politique-de-confidentialite/" },
 };
 
 export default function PolitiqueDeConfidentialite() {
